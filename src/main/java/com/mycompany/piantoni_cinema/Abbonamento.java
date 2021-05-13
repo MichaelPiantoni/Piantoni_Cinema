@@ -46,7 +46,7 @@ public class Abbonamento
         Nome="";
         Cognome="";
         Tipologia=0; 
-        DataVendita=LocalDate.
+        
     }
     
     
