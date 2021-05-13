@@ -1,2 +1,2 @@
-# Piantoni_Cinema
-Progetto informatica TPS
+# Piantoni_cinema
+Progetto informatica TPS fine anno di Piantoni Michael
