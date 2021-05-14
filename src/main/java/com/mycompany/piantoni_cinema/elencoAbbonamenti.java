@@ -5,6 +5,10 @@
  */
 package com.mycompany.piantoni_cinema;
 
+import Eccezioni.EccezionePosizioneNonValida;
+import Eccezioni.EccezionePosizioneNonVuota;
+import java.util.Scanner;
+
 /**
  *
  * @author Michael
@@ -13,7 +17,7 @@ public class elencoAbbonamenti
 {
     private Abbonamento[] abbonamenti;
     private static int N_MAX_ABBONATI=15;
-    
+    Scanner tastiera= new Scanner(System.in);
     public elencoAbbonamenti()
     {
       abbonamenti=new Abbonamento[N_MAX_ABBONATI];
@@ -42,13 +46,20 @@ public class elencoAbbonamenti
     }
     public int setAbbonato(Abbonamento abbonamento, int posizione)
     {
+        
         if(posizione<0||posizione>=getNumMaxAbbonati())
             return -1;
         if(abbonamenti[posizione]!=null)
             return -2;
-        abbonamenti[posizione]=new Abbonamento(abbonamento);
-        return posizione;
+        else
+        {
+            abbonamenti[posizione]=new Abbonamento(abbonamento);
+            return posizione;
+        }
+            
+        
     }
+    
     public Abbonamento getAbbonato(int posizione)
     {
         if(posizione<0||posizione>=getNumMaxAbbonati())
@@ -57,4 +68,40 @@ public class elencoAbbonamenti
             return null;
         return new Abbonamento(abbonamenti[posizione]);
     }
+    
+    public int getNumAbbonati()
+    {
+        int contatore=0;
+        for(int i=0;i<getNumMaxAbbonati();i++)
+        {
+            if(abbonamenti[i]!=null)
+                contatore++;
+        }
+        return contatore;
+    }
+    
+    
+    public String elencoAlfabeticoAbbonamenti()
+   {
+        String s="";
+        String elencoAbbonati[]=new String[getNumAbbonati()];
+        int c=0;
+        Abbonamento abbonamento;
+        for(int i=0;i<getNumMaxAbbonati();i++)
+        {
+                if(getAbbonato(i)!=null)
+                {
+                    abbonamento=getAbbonato(i);
+                    elencoAbbonati[c]=abbonamento.getNome()+";"+abbonamento.getCognome()+";"+abbonamento.getTipologia();
+                    c++;
+                }
+            
+        }
+        elencoAbbonati=Ordinatore.selectionSortCrescente(elencoAbbonati);
+        for(int i=0;i<elencoAbbonati.length;i++)
+        { 
+            s=s+elencoAbbonati[i]+"\n"; 
+        }     
+    return s; 
+   }
 }

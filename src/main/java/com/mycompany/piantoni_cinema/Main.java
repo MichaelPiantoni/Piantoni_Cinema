@@ -5,6 +5,9 @@
  */
 package com.mycompany.piantoni_cinema;
 
+
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Scanner;
 
 /**
@@ -25,7 +28,7 @@ public class Main
         
         vociMenu[0] = "Esci";
         vociMenu[1] = "Aggiungi abbonamento";
-        vociMenu[2] = "Visualizza abbonamento";
+        vociMenu[2] = "Visualizza abbonamenti in ordine alfabetico";
         
         
         
@@ -60,25 +63,22 @@ public class Main
                     giorno=tastiera.nextInt();
                     System.out.println("Posizione--> ");
                     posizione=tastiera.nextInt();
-
-                    e1.setAbbonato(abbonamento,posizione);
-                    System.out.println(abbonamento.toString());
+                    
+                    esitoOperazione=e1.setAbbonato(abbonamento,posizione);
+                       
+                    if(esitoOperazione==posizione)
+                        System.out.println("Ok inserimento eseguito correttamente");
+                    else if(esitoOperazione==-1)
+                        System.out.println("Posizione non valida. Inserimento non effettuato");
+                    else if(esitoOperazione==-2)
+                        System.out.println("Posizione occupata. Inserimento non effettuato");
+                    System.out.println("Premi un pulsante per continuare");
                     tastiera.nextLine();
                     break;
                 }
                 case 2:
-                {
-                    String NomeDaCercare;
-                    String CognomeDaCercare;
-                    System.out.println("Inserisci nome dell'abbonato--> ");
-                    NomeDaCercare=tastiera.nextLine();
-                    System.out.println("Inserisci cognome dell'abbonato--> ");
-                    CognomeDaCercare=tastiera.nextLine();
-                    if(abbonamento.getNome().equalsIgnoreCase(NomeDaCercare)&&abbonamento.getCognome().equalsIgnoreCase(CognomeDaCercare))
-                        System.out.println(abbonamento.toString());
-                    else
-                        System.out.println("nessun abbonamento presente con questi dati");
-                    tastiera.nextLine();
+                { 
+                    System.out.println(e1.elencoAlfabeticoAbbonamenti());
                     break;
                 }
                 case 3:

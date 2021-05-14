@@ -20,6 +20,8 @@ public class Abbonamento
     private int Tipologia;
     private LocalDate DataVendita;
     private LocalDate DataScadenza;
+    private static int N_MAX_ABBONATI=15;
+    
 
     public Abbonamento(int Codice, String Nome, String Cognome, int Tipologia,int anno,int mese,int giorno) 
     {
@@ -46,7 +48,7 @@ public class Abbonamento
         Nome="";
         Cognome="";
         Tipologia=0; 
-        
+        DataVendita=LocalDate.now();
     }
     
     
@@ -116,7 +118,11 @@ public class Abbonamento
        return s;
    }
     
-    
+    public static int getNumMaxAbbonati()
+    {
+        return N_MAX_ABBONATI;
+    }
+
     
     
 }
