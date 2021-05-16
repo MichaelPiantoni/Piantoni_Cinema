@@ -32,13 +32,13 @@ public class Abbonamento
         this.DataVendita=LocalDate.of(anno,mese,giorno);
     }
 
-    public Abbonamento(Abbonamento a)
+    public Abbonamento(Abbonamento abbonamento)
     {
-        this.Codice=a.getCodice();
-        this.Nome=a.getNome();
-        this.Cognome=a.getCognome();
-        this.Tipologia=a.getTipologia();
-        this.DataVendita=a.getDataVendita();
+        this.Codice=abbonamento.getCodice();
+        this.Nome=abbonamento.getNome();
+        this.Cognome=abbonamento.getCognome();
+        this.Tipologia=abbonamento.getTipologia();
+        this.DataVendita=abbonamento.getDataVendita();
         
     }
     
@@ -122,6 +122,8 @@ public class Abbonamento
     {
         return N_MAX_ABBONATI;
     }
+
+  
 
     
     

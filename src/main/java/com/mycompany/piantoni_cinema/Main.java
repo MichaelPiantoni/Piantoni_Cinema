@@ -7,7 +7,7 @@ package com.mycompany.piantoni_cinema;
 
 
 import java.time.LocalDate;
-import java.time.Month;
+
 import java.util.Scanner;
 
 /**
@@ -20,15 +20,17 @@ public class Main
     {
         int sceltaUtente=-1;
         int esitoOperazione;
-        int anno,mese,giorno,posizione;
+        int posizione,anno,mese,giorno,codice,tipologia;
+        String Nome,Cognome,nome,cognome;
         Scanner tastiera= new Scanner(System.in);
-        String[] vociMenu= new String[3];
+        String[] vociMenu= new String[4];
         elencoAbbonamenti e1=new elencoAbbonamenti();
-        Abbonamento abbonamento=null;
+        Abbonamento abbonamento = null;
         
         vociMenu[0] = "Esci";
         vociMenu[1] = "Aggiungi abbonamento";
         vociMenu[2] = "Visualizza abbonamenti in ordine alfabetico";
+        vociMenu[3] = "Visualizza abbonamento scrivendo nome e cognome";
         
         
         
@@ -48,21 +50,27 @@ public class Main
                 {
                     abbonamento = new Abbonamento();
 
-                    
+                    System.out.println("Codice--> ");
+                    codice=tastiera.nextInt();
+                    tastiera.nextLine();
                     System.out.println("Nome--> ");
-                    abbonamento.setNome(tastiera.nextLine());
+                    Nome=tastiera.nextLine();
                     System.out.println("Cognome--> ");
-                    abbonamento.setCognome(tastiera.nextLine());
+                    Cognome=tastiera.nextLine();
                     System.out.println("Tipologia--> ");
-                    abbonamento.setTipologia(tastiera.nextInt());
+                    tipologia=tastiera.nextInt();
                     System.out.println("Anno--> ");
                     anno=tastiera.nextInt();
                     System.out.println("Mese--> ");
                     mese=tastiera.nextInt();
                     System.out.println("Giorno--> ");
                     giorno=tastiera.nextInt();
+                    abbonamento=new Abbonamento( codice,Nome, Cognome,tipologia,anno,mese,giorno);
                     System.out.println("Posizione--> ");
                     posizione=tastiera.nextInt();
+                    
+                    
+                    
                     
                     esitoOperazione=e1.setAbbonato(abbonamento,posizione);
                        
@@ -84,6 +92,8 @@ public class Main
                 case 3:
                 {
                     
+                    System.out.println(e1.AbbonamentoPerNome());
+                    break;
                 }
             }    
         }while(sceltaUtente!=0);

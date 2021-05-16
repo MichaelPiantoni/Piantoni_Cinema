@@ -41,7 +41,6 @@ public class Ordinatore
                     scambia(ordinato,i,j);
             }
         }
-        return ordinato;
-                   
+        return ordinato;             
     }
 }

@@ -34,16 +34,7 @@ public class elencoAbbonamenti
     {
         return N_MAX_ABBONATI;
     }
-    public int getNumVolumi()
-    {
-        int contatore=0;
-        for(int i=0;i<getNumMaxAbbonati();i++)
-        {
-            if(abbonamenti[i]!=null)
-                contatore++;
-        }
-        return contatore;
-    }
+    
     public int setAbbonato(Abbonamento abbonamento, int posizione)
     {
         
@@ -69,6 +60,8 @@ public class elencoAbbonamenti
         return new Abbonamento(abbonamenti[posizione]);
     }
     
+    
+    
     public int getNumAbbonati()
     {
         int contatore=0;
@@ -82,7 +75,7 @@ public class elencoAbbonamenti
     
     
     public String elencoAlfabeticoAbbonamenti()
-   {
+    {
         String s="";
         String elencoAbbonati[]=new String[getNumAbbonati()];
         int c=0;
@@ -92,7 +85,7 @@ public class elencoAbbonamenti
                 if(getAbbonato(i)!=null)
                 {
                     abbonamento=getAbbonato(i);
-                    elencoAbbonati[c]=abbonamento.getNome()+";"+abbonamento.getCognome()+";"+abbonamento.getTipologia();
+                    elencoAbbonati[c]=abbonamento.getNome()+";"+abbonamento.getCognome()+";"+abbonamento.getTipologia()+";"+abbonamento.getDataVendita();
                     c++;
                 }
             
@@ -103,5 +96,30 @@ public class elencoAbbonamenti
             s=s+elencoAbbonati[i]+"\n"; 
         }     
     return s; 
-   }
+    }
+    
+    public String AbbonamentoPerNome()
+    {
+        String s="";
+        String elencoAbbonati[]=new String[getNumAbbonati()];
+        int c=0;
+        System.out.println("Nome da cercare-->");
+        String nome=tastiera.nextLine();
+        System.out.println("Cognome da cercare-->");
+        String cognome=tastiera.nextLine();
+        Abbonamento abbonamento;
+        for(int i=0;i<getNumAbbonati();i++)
+        {
+            if(abbonamenti[i].getNome().equalsIgnoreCase(nome))
+            {
+                if(abbonamenti[i].getCognome().equalsIgnoreCase(cognome))
+                {
+                    abbonamento=getAbbonato(i);
+                    s=abbonamento.getNome()+";"+abbonamento.getCognome()+";"+abbonamento.getTipologia()+";"+abbonamento.getDataVendita(); 
+                }
+            }
+        }
+        return s;
+    }
+    
 }

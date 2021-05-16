@@ -78,8 +78,7 @@ public class Menu
         
         } while(!inputUtenteOk);
 
-        return sceltaUtente;
-        
+        return sceltaUtente;   
     }
 
             
