@@ -7,6 +7,7 @@ package com.mycompany.piantoni_cinema;
 
 import Eccezioni.EccezionePosizioneNonValida;
 import Eccezioni.EccezionePosizioneNonVuota;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 /**
@@ -85,7 +86,7 @@ public class elencoAbbonamenti
                 if(getAbbonato(i)!=null)
                 {
                     abbonamento=getAbbonato(i);
-                    elencoAbbonati[c]=abbonamento.getNome()+";"+abbonamento.getCognome()+";"+abbonamento.getTipologia()+";"+abbonamento.getDataVendita();
+                    elencoAbbonati[c]=abbonamento.toString();
                     c++;
                 }
             
@@ -115,11 +116,12 @@ public class elencoAbbonamenti
                 if(abbonamenti[i].getCognome().equalsIgnoreCase(cognome))
                 {
                     abbonamento=getAbbonato(i);
-                    s=abbonamento.getNome()+";"+abbonamento.getCognome()+";"+abbonamento.getTipologia()+";"+abbonamento.getDataVendita(); 
+                    s=abbonamento.toString();
                 }
             }
         }
         return s;
     }
+    
     
 }

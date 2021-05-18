@@ -14,6 +14,8 @@ import java.time.Month;
  */
 public class Abbonamento 
 {
+
+    static LocalDate getDataScadenza;
     private int Codice;
     private String Nome;
     private String Cognome;
@@ -21,15 +23,19 @@ public class Abbonamento
     private LocalDate DataVendita;
     private LocalDate DataScadenza;
     private static int N_MAX_ABBONATI=15;
+    elencoAbbonamenti e1=new elencoAbbonamenti();
+    
+    
     
 
-    public Abbonamento(int Codice, String Nome, String Cognome, int Tipologia,int anno,int mese,int giorno) 
+    public Abbonamento(int Codice, String Nome, String Cognome, int Tipologia,int anno,int mese,int giorno,int annoS,int meseS,int giornoS) 
     {
         this.Codice = Codice;
         this.Nome = Nome;
         this.Cognome = Cognome;
         this.Tipologia = Tipologia;
         this.DataVendita=LocalDate.of(anno,mese,giorno);
+        this.DataScadenza=LocalDate.of(annoS,meseS,giornoS);
     }
 
     public Abbonamento(Abbonamento abbonamento)
@@ -39,7 +45,7 @@ public class Abbonamento
         this.Cognome=abbonamento.getCognome();
         this.Tipologia=abbonamento.getTipologia();
         this.DataVendita=abbonamento.getDataVendita();
-        
+        this.DataScadenza=abbonamento.getDataScadenza();
     }
     
     public Abbonamento()
@@ -49,6 +55,7 @@ public class Abbonamento
         Cognome="";
         Tipologia=0; 
         DataVendita=LocalDate.now();
+        DataScadenza=LocalDate.now();
     }
     
     
@@ -114,14 +121,11 @@ public class Abbonamento
     public String toString()
    {
        String s;
-       s="Codice: "+getCodice()+"; Nome: "+getNome()+"; Cognome: "+getCognome()+"; Tipologia: "+getTipologia()+"; Data vendita: "+getDataVendita();
+       s="Codice: "+getCodice()+"; Nome: "+getNome()+"; Cognome: "+getCognome()+"; Tipologia: "+getTipologia()+"; Data vendita: "+getDataVendita()+"; Data scadenza: "+getDataScadenza();
        return s;
    }
     
-    public static int getNumMaxAbbonati()
-    {
-        return N_MAX_ABBONATI;
-    }
+    
 
   
 
