@@ -27,7 +27,7 @@ public class Main
         LocalDate DataScadenza=null;
         String Nome,Cognome,nome,cognome;
         Scanner tastiera= new Scanner(System.in);
-        String[] vociMenu= new String[4];
+        String[] vociMenu= new String[6];
         elencoAbbonamenti e1=new elencoAbbonamenti();
         Abbonamento abbonamento = null;
         int c=0;
@@ -37,6 +37,8 @@ public class Main
         vociMenu[1] = "Aggiungi abbonamento";
         vociMenu[2] = "Visualizza abbonamenti in ordine alfabetico";
         vociMenu[3] = "Visualizza abbonamento scrivendo nome e cognome";
+        vociMenu[4] = "Visualizza abbonamento scrivendo data di scadenza";
+        vociMenu[5] = "Elimina abbonamento scrivendo la data di scefenza";
         
         
         
@@ -63,7 +65,7 @@ public class Main
                     Nome=tastiera.nextLine();
                     System.out.println("Cognome--> ");
                     Cognome=tastiera.nextLine();
-                    System.out.println("Tipologia--> ");
+                    System.out.println("Tipologia(1=annuale, 2=mensile, 3=settimanale)--> ");
                     tipologia=tastiera.nextInt();
                     System.out.println("Anno--> ");
                     anno=tastiera.nextInt();
@@ -95,7 +97,7 @@ public class Main
                         annoS=anno;
                         meseS=mese;
                         DataScadenza=abbonamento.getDataVendita().plusDays(7);
-                        annoS=DataScadenza.getDayOfMonth();
+                        giornoS=DataScadenza.getDayOfMonth();
                     }
                     abbonamento=new Abbonamento(codice,Nome, Cognome,tipologia,anno,mese,giorno,annoS,meseS,giornoS);
                     
@@ -125,6 +127,16 @@ public class Main
                 case 3:
                 {
                     System.out.println(e1.AbbonamentoPerNome());
+                    break;
+                }
+                case 4:
+                {
+                    System.out.println(e1.AbbonamentoPerData());
+                    break;
+                }
+                case 5:
+                {
+                    e1.rimuoviAbbonamento();
                     break;
                 }
             }    

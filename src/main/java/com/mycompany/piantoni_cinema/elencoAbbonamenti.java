@@ -104,6 +104,7 @@ public class elencoAbbonamenti
         String s="";
         String elencoAbbonati[]=new String[getNumAbbonati()];
         int c=0;
+        tastiera.nextLine();
         System.out.println("Nome da cercare-->");
         String nome=tastiera.nextLine();
         System.out.println("Cognome da cercare-->");
@@ -118,10 +119,83 @@ public class elencoAbbonamenti
                     abbonamento=getAbbonato(i);
                     s=abbonamento.toString();
                 }
+                else
+                    System.out.println("Nessun abbonato trovato con questo cognome");
             }
+            else
+                System.out.println("Nessun abbonato trovato con questo nome");
         }
         return s;
     }
-    
+    public String AbbonamentoPerData()
+    {
+        String s="";
+        String elencoAbbonati[]=new String[getNumAbbonati()];
+        int c=0;
+        System.out.println("Anno-->");
+        int annoDaCercare=tastiera.nextInt();
+        System.out.println("Mese-->");
+        int meseDaCercare=tastiera.nextInt();
+        System.out.println("Giorno-->");
+        int giornoDaCercare=tastiera.nextInt();
+        Abbonamento abbonamento;
+        for(int i=0;i<getNumAbbonati();i++)
+        {
+            if(abbonamenti[i].getDataScadenza().getYear()==annoDaCercare)
+            {
+                if(abbonamenti[i].getDataScadenza().getMonthValue()==meseDaCercare)
+                {
+                    if(abbonamenti[i].getDataScadenza().getDayOfMonth()==giornoDaCercare)
+                    {
+                        abbonamento=getAbbonato(i);
+                        s=abbonamento.toString();
+                    }
+                    else
+                        System.out.println("Nessun abbonamento in scadenza in questa data");
+                }
+                else
+                    System.out.println("Nessun abbonamento in scadenza in questa data");
+                
+            }
+            else
+                System.out.println("Nessun abbonamento in scadenza in questa data");
+            
+        }
+        return s;
+    }
+    public void rimuoviAbbonamento()
+    {
+        String elencoAbbonati[]=new String[getNumAbbonati()];
+        int c=0;
+        Abbonamento abbonamento;
+        System.out.println("Anno-->");
+        int annoDaCercare=tastiera.nextInt();
+        System.out.println("Mese-->");
+        int meseDaCercare=tastiera.nextInt();
+        System.out.println("Giorno-->");
+        int giornoDaCercare=tastiera.nextInt();
+        for(int i=0;i<getNumAbbonati();i++)
+        {
+            if(abbonamenti[i].getDataScadenza().getYear()==annoDaCercare)
+            {
+                if(abbonamenti[i].getDataScadenza().getMonthValue()==meseDaCercare)
+                {
+                    if(abbonamenti[i].getDataScadenza().getDayOfMonth()==giornoDaCercare)
+                    {
+                         abbonamenti[i]=null;
+                    }
+                    else
+                        System.out.println("Nessun abbonamento in scadenza in questa data");
+                }
+                else
+                    System.out.println("Nessun abbonamento in scadenza in questa data");
+                
+            }
+            else
+                System.out.println("Nessun abbonamento in scadenza in questa data");
+        }
+       
+        
+    }
     
 }
