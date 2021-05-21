@@ -6,6 +6,9 @@
 package com.mycompany.piantoni_cinema;
 
 
+import Eccezioni.EccezionePosizioneNonValida;
+import file.FileExeption;
+import java.io.IOException;
 import java.time.LocalDate;
 
 import java.util.Scanner;
@@ -27,10 +30,12 @@ public class Main
         LocalDate DataScadenza=null;
         String Nome,Cognome,nome,cognome;
         Scanner tastiera= new Scanner(System.in);
-        String[] vociMenu= new String[6];
+        String[] vociMenu= new String[8];
         elencoAbbonamenti e1=new elencoAbbonamenti();
         Abbonamento abbonamento = null;
         int c=0;
+        String nomeFileBinario="elencoAbbonamenti.bin";
+        String nomeFileCSV="Abbonamenti.txt";
         
         
         vociMenu[0] = "Esci";
@@ -39,11 +44,25 @@ public class Main
         vociMenu[3] = "Visualizza abbonamento scrivendo nome e cognome";
         vociMenu[4] = "Visualizza abbonamento scrivendo data di scadenza";
         vociMenu[5] = "Elimina abbonamento scrivendo la data di scefenza";
-        
-        
+        vociMenu[6] = "Esporta libri in formato csv";
+        vociMenu[7] = "Salva dati";
         
         Menu menu= new Menu(vociMenu);
 
+        
+        try 
+        {
+            e1=e1.caricaelencoAbbonamenti(nomeFileBinario);
+            System.out.println("Dati caricati correttamente");
+        }
+        catch (IOException ex) 
+        {
+            System.out.println("Impossibile accedere al file. I dati non sono stati caricati");
+        }
+        catch (FileExeption ex) 
+        {
+            System.out.println("Errore di lettura dal file. I dati non sono stati caricati");
+        }
         do
         {
             sceltaUtente=menu.sceltaMenu();
@@ -89,7 +108,10 @@ public class Main
                     {
                         DataScadenza=abbonamento.getDataVendita().plusMonths(1);
                         meseS=DataScadenza.getMonthValue();
-                        annoS=anno;
+                        if(meseS==1)
+                            annoS=anno+1;
+                        else
+                            annoS=anno;
                         giornoS=giorno;
                     }
                     if(tipologia==3)
@@ -98,6 +120,8 @@ public class Main
                         meseS=mese;
                         DataScadenza=abbonamento.getDataVendita().plusDays(7);
                         giornoS=DataScadenza.getDayOfMonth();
+                        
+                        
                     }
                     abbonamento=new Abbonamento(codice,Nome, Cognome,tipologia,anno,mese,giorno,annoS,meseS,giornoS);
                     
@@ -137,6 +161,37 @@ public class Main
                 case 5:
                 {
                     e1.rimuoviAbbonamento();
+                    break;
+                }
+                case 6:
+                {
+                     try
+                     {
+                        e1.esportaAbbonamenti(nomeFileCSV);
+                        System.out.println("esportazione avvenuta correttamente!");
+                     }
+                     catch(IOException ec1)
+                     {
+                         System.out.println("Impossibile accedere al file, i libri non sono stati salvati.");
+                     }
+                     catch(EccezionePosizioneNonValida | FileExeption  ec2)
+                     {
+                         System.out.println(ec2.toString());
+                     }
+                 
+                     break;
+                }
+                case 7:
+                {
+                    try 
+                    {
+                        e1.salvaElenco(nomeFileBinario);
+                        System.out.println("Dati salvati correttamente");
+                    } 
+                    catch (IOException ex) 
+                    {
+                        System.out.println("Impossibile accedere al file. I dati non sono stati salvati");  
+                    }
                     break;
                 }
             }    
