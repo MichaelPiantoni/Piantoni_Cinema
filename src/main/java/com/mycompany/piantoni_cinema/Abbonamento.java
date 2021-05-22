@@ -5,6 +5,7 @@
  */
 package com.mycompany.piantoni_cinema;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
 
@@ -12,7 +13,7 @@ import java.time.Month;
  *
  * @author Michael
  */
-public class Abbonamento 
+public class Abbonamento implements Serializable
 {
 
     static LocalDate getDataScadenza;

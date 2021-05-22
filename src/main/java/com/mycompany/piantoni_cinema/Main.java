@@ -150,17 +150,33 @@ public class Main
                 }
                 case 3:
                 {
-                    System.out.println(e1.AbbonamentoPerNome());
+                    System.out.println("Nome da cercare-->");
+                    String nomeDaCercare=tastiera.nextLine();
+                    System.out.println("Cognome da cercare-->");
+                    String cognomeDaCercare=tastiera.nextLine();
+                    System.out.println(e1.AbbonamentoPerNome(nomeDaCercare,cognomeDaCercare));
                     break;
                 }
                 case 4:
                 {
-                    System.out.println(e1.AbbonamentoPerData());
+                    System.out.println("Anno-->");
+                    int annoDaCercare=tastiera.nextInt();
+                    System.out.println("Mese-->");
+                    int meseDaCercare=tastiera.nextInt();
+                    System.out.println("Giorno-->");
+                    int giornoDaCercare=tastiera.nextInt();
+                    System.out.println(e1.AbbonamentoPerData(annoDaCercare,meseDaCercare,giornoDaCercare));
                     break;
                 }
                 case 5:
                 {
-                    e1.rimuoviAbbonamento();
+                    System.out.println("Anno-->");
+                    int annoDaEliminare=tastiera.nextInt();
+                    System.out.println("Mese-->");
+                    int meseDaEliminare=tastiera.nextInt();
+                    System.out.println("Giorno-->");
+                    int giornoDaEliminare=tastiera.nextInt();
+                    e1.rimuoviAbbonamento(annoDaEliminare,meseDaEliminare,giornoDaEliminare);
                     break;
                 }
                 case 6:

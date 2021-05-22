@@ -8,7 +8,6 @@ package com.mycompany.piantoni_cinema;
 import Eccezioni.EccezionePosizioneNonValida;
 import Eccezioni.EccezionePosizioneNonVuota;
 import java.time.LocalDate;
-import java.util.Scanner;
 import file.TextFile;
 import file.FileExeption;
 import java.io.FileInputStream;
@@ -17,16 +16,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 /**
  *
  * @author Michael
  */
-public class elencoAbbonamenti 
+public class elencoAbbonamenti implements Serializable
 {
     private Abbonamento[] abbonamenti;
     private static int N_MAX_ABBONATI=15;
-    Scanner tastiera= new Scanner(System.in);
+    
     public elencoAbbonamenti()
     {
       abbonamenti=new Abbonamento[N_MAX_ABBONATI];
@@ -107,45 +107,34 @@ public class elencoAbbonamenti
     return s; 
     }
     
-    public String AbbonamentoPerNome()
+    public String AbbonamentoPerNome(String nomeDaCercare,String cognomeDaCercare)
     {
         String s="";
         String elencoAbbonati[]=new String[getNumAbbonati()];
         int c=0;
-        tastiera.nextLine();
-        System.out.println("Nome da cercare-->");
-        String nome=tastiera.nextLine();
-        System.out.println("Cognome da cercare-->");
-        String cognome=tastiera.nextLine();
-        Abbonamento abbonamento;
+        
+        Abbonamento abbonamento; 
         for(int i=0;i<getNumAbbonati();i++)
         {
-            if(abbonamenti[i].getNome().equalsIgnoreCase(nome))
+            if(abbonamenti[i].getNome().equalsIgnoreCase(nomeDaCercare))
             {
-                if(abbonamenti[i].getCognome().equalsIgnoreCase(cognome))
+                if(abbonamenti[i].getCognome().equalsIgnoreCase(cognomeDaCercare))
                 {
                     abbonamento=getAbbonato(i);
                     s=abbonamento.toString();
                 }
-                else
-                    System.out.println("Nessun abbonato trovato con questo cognome");
+                
             }
-            else
-                System.out.println("Nessun abbonato trovato con questo nome");
+            
         }
         return s;
     }
-    public String AbbonamentoPerData()
+    public String AbbonamentoPerData(int annoDaCercare,int meseDaCercare,int giornoDaCercare)
     {
         String s="";
         String elencoAbbonati[]=new String[getNumAbbonati()];
         int c=0;
-        System.out.println("Anno-->");
-        int annoDaCercare=tastiera.nextInt();
-        System.out.println("Mese-->");
-        int meseDaCercare=tastiera.nextInt();
-        System.out.println("Giorno-->");
-        int giornoDaCercare=tastiera.nextInt();
+        
         Abbonamento abbonamento;
         for(int i=0;i<getNumAbbonati();i++)
         {
@@ -171,24 +160,19 @@ public class elencoAbbonamenti
         }
         return s;
     }
-    public void rimuoviAbbonamento()
+    public void rimuoviAbbonamento(int annoDaEliminare,int meseDaEliminare,int giornoDaEliminare)
     {
         String elencoAbbonati[]=new String[getNumAbbonati()];
         int c=0;
         Abbonamento abbonamento;
-        System.out.println("Anno-->");
-        int annoDaCercare=tastiera.nextInt();
-        System.out.println("Mese-->");
-        int meseDaCercare=tastiera.nextInt();
-        System.out.println("Giorno-->");
-        int giornoDaCercare=tastiera.nextInt();
+        
         for(int i=0;i<getNumAbbonati();i++)
         {
-            if(abbonamenti[i].getDataScadenza().getYear()==annoDaCercare)
+            if(abbonamenti[i].getDataScadenza().getYear()==annoDaEliminare)
             {
-                if(abbonamenti[i].getDataScadenza().getMonthValue()==meseDaCercare)
+                if(abbonamenti[i].getDataScadenza().getMonthValue()==meseDaEliminare)
                 {
-                    if(abbonamenti[i].getDataScadenza().getDayOfMonth()==giornoDaCercare)
+                    if(abbonamenti[i].getDataScadenza().getDayOfMonth()==giornoDaEliminare)
                     {
                          abbonamenti[i]=null;
                     }

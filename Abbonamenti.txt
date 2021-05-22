@@ -1,1 +1,2 @@
-Codice: 1; Nome: as; Cognome: as; Tipologia: 2020; Data vendita: 0012-01-01; Data scadenza: 0001-01-01
+Codice: 1; Nome: as; Cognome: as; Tipologia: 1; Data vendita: 2020-12-12; Data scadenza: 2021-12-12
+Codice: 2; Nome: qw; Cognome: qw; Tipologia: 3; Data vendita: 2020-11-12; Data scadenza: 2020-11-19
