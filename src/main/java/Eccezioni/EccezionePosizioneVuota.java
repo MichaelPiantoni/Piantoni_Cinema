@@ -33,7 +33,7 @@ public class EccezionePosizioneVuota extends Exception
     public String toString()
     {
         String s="";
-        s+="La posizione ripiano: "+getRipiano()+" posizione: "+getPosizione()+" è vuota";
+        s+="La posizione: "+getPosizione()+" è vuota";
         return s;
     }
     

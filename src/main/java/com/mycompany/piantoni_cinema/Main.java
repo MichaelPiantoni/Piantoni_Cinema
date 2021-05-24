@@ -150,6 +150,7 @@ public class Main
                 }
                 case 3:
                 {
+                    tastiera.nextLine();
                     System.out.println("Nome da cercare-->");
                     String nomeDaCercare=tastiera.nextLine();
                     System.out.println("Cognome da cercare-->");
@@ -183,7 +184,7 @@ public class Main
                 {
                      try
                      {
-                        e1.esportaAbbonamenti(nomeFileCSV);
+                        e1.esportaAbbonamentiCsv(nomeFileCSV);
                         System.out.println("esportazione avvenuta correttamente!");
                      }
                      catch(IOException ec1)

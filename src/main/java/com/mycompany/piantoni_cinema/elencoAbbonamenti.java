@@ -27,10 +27,18 @@ public class elencoAbbonamenti implements Serializable
     private Abbonamento[] abbonamenti;
     private static int N_MAX_ABBONATI=15;
     
+    
+    /**
+     * Costruttore della classe elencoAbbonamenti
+     */
     public elencoAbbonamenti()
     {
       abbonamenti=new Abbonamento[N_MAX_ABBONATI];
     }
+    /**
+     * Costruttore di copia
+     * @param e 
+     */
     public elencoAbbonamenti(elencoAbbonamenti e)
     {
         abbonamenti=new Abbonamento[N_MAX_ABBONATI];
@@ -39,11 +47,20 @@ public class elencoAbbonamenti implements Serializable
             abbonamenti[i]=e.getAbbonato(i);
         }
     }
+    /**
+     * restituisce il numero massimo di abbonamenti che possono essere inseriti
+     * @return N_MAX_ABBONATI
+     */
     public static int getNumMaxAbbonati()
     {
         return N_MAX_ABBONATI;
     }
-    
+    /**
+     * 
+     * @param abbonamento
+     * @param posizione
+     * @return posizione
+     */
     public int setAbbonato(Abbonamento abbonamento, int posizione)
     {
         
@@ -59,7 +76,11 @@ public class elencoAbbonamenti implements Serializable
             
         
     }
-    
+    /**
+     * 
+     * @param posizione
+     * @return 
+     */
     public Abbonamento getAbbonato(int posizione)
     {
         if(posizione<0||posizione>=getNumMaxAbbonati())
@@ -70,7 +91,10 @@ public class elencoAbbonamenti implements Serializable
     }
     
     
-    
+    /**
+     * metodo che restituisce il numero di abbonamenti inseriti finora
+     * @return contatore
+     */
     public int getNumAbbonati()
     {
         int contatore=0;
@@ -82,7 +106,11 @@ public class elencoAbbonamenti implements Serializable
         return contatore;
     }
     
-    
+    /**
+     * metodo che restituisce i dati di tutti gli abbonamenti<br>
+     * in ordine alfabetico del nome degli abbonati
+     * @return s variabile dove vengono memorizzati tutti i dati
+     */
     public String elencoAlfabeticoAbbonamenti()
     {
         String s="";
@@ -106,7 +134,13 @@ public class elencoAbbonamenti implements Serializable
         }     
     return s; 
     }
-    
+    /**
+     * metodo che restituisce i dati di un abbonamento<br>
+     * scrivendo il nome del proprietario di esso
+     * @param nomeDaCercare nome che si vuole cercare
+     * @param cognomeDaCercare cognome che si vuole cercare
+     * @return s variabile dove vengono memorizzati i dati dell'abbonamento cercato
+     */
     public String AbbonamentoPerNome(String nomeDaCercare,String cognomeDaCercare)
     {
         String s="";
@@ -129,6 +163,14 @@ public class elencoAbbonamenti implements Serializable
         }
         return s;
     }
+    /**
+     * metodo che restituisce i dati di un abbonamento<br>
+     * scrivendo la data di scadenza di esso
+     * @param annoDaCercare anno della data di scadenza che si vuole cercare
+     * @param meseDaCercare mese della data di scadenza che si vuole cercare
+     * @param giornoDaCercare giorno della data di scadenza che si vuole cercare
+     * @return s variabile dove vengono memorizzati i dati dell'abbonamento cercato
+     */
     public String AbbonamentoPerData(int annoDaCercare,int meseDaCercare,int giornoDaCercare)
     {
         String s="";
@@ -160,6 +202,13 @@ public class elencoAbbonamenti implements Serializable
         }
         return s;
     }
+    /**
+     * metodo che permette di eliminare un abbonamento<br>
+     * scrivendo la data di scadenza di esso
+     * @param annoDaEliminare anno della data di scadenza dell'abbonamento che si vuole eliminare
+     * @param meseDaEliminare mese della data di scadenza dell'abbonamento che si vuole eliminare
+     * @param giornoDaEliminare giorno della data di scadenza dell'abbonamento che si vuole eliminare
+     */
     public void rimuoviAbbonamento(int annoDaEliminare,int meseDaEliminare,int giornoDaEliminare)
     {
         String elencoAbbonati[]=new String[getNumAbbonati()];
@@ -189,23 +238,17 @@ public class elencoAbbonamenti implements Serializable
        
         
     }
-    public void esportaAbbonamenti(String nomeFile) throws IOException, EccezionePosizioneNonValida, FileExeption
-    {
-        TextFile f1= new TextFile(nomeFile, 'w');
-        Abbonamento abbonamento;
-        for(int i=0;i<getNumMaxAbbonati();i++)
-        {
-            abbonamento=getAbbonato(i);
-            if(abbonamento!=null)
-            {
-                f1.toFile("Codice: "+abbonamento.getCodice()+"; Nome: "+abbonamento.getNome()+"; Cognome: "+abbonamento.getCognome()+"; Tipologia: "+abbonamento.getTipologia()+"; Data vendita: "+abbonamento.getDataVendita()+"; Data scadenza: "+abbonamento.getDataScadenza());  
-            }
-        }
-
-    f1.close();
-      
-    }
     
+    
+    
+    /**
+     * metodo che esporta tutti gli abbonamenti in formato csv<br>
+     * cioè le informazioni di tutti gli abbonamenti separate da ";"
+     * @param nomeFile il nome del file dove verranno salvate le informazioni
+     * @throws IOException Eccezione che si solleva quando non si riesce ad accedere al file
+     * @throws EccezionePosizioneNonValida Eccezione che dice che la posizione non è valida
+     * @throws FileExeption Eccezione che dice che non si riesce a trovare il file
+     */
     public void esportaAbbonamentiCsv(String nomeFile) throws IOException, EccezionePosizioneNonValida, FileExeption
     {
       TextFile f1= new TextFile(nomeFile, 'W');
@@ -240,6 +283,14 @@ public class elencoAbbonamenti implements Serializable
       outputStream.flush();
       outputStream.close();
     }
+    /**
+     * 
+     * @param nomeFile il nome del file da dove verranno caricate le informazioni
+     * @return e
+     * @throws FileNotFoundException
+     * @throws IOException Eccezione che si solleva quando non si riesce ad accedere al file
+     * @throws FileExeption Eccezione che dice che non si riesce a trovare il file
+     */
     public elencoAbbonamenti caricaelencoAbbonamenti(String nomeFile) throws FileNotFoundException, IOException, FileExeption 
     {
         FileInputStream f1=new FileInputStream(nomeFile);
