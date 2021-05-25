@@ -10,13 +10,7 @@ import Eccezioni.EccezionePosizioneNonVuota;
 import java.time.LocalDate;
 import file.TextFile;
 import file.FileExeption;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 
 /**
  *
@@ -56,10 +50,12 @@ public class elencoAbbonamenti implements Serializable
         return N_MAX_ABBONATI;
     }
     /**
-     * 
+     * Aggiunge un abbonamento nella posizione indicata
      * @param abbonamento
      * @param posizione
      * @return posizione
+     * @return -1 se la posizione non esiste
+     * @return -2 se la posizione è occupata
      */
     public int setAbbonato(Abbonamento abbonamento, int posizione)
     {
@@ -77,9 +73,9 @@ public class elencoAbbonamenti implements Serializable
         
     }
     /**
-     * 
+     * Restituisce un abbonamento che si trova in una determinata posizione
      * @param posizione
-     * @return 
+     * @return null se la posizione è vuota o se non esiste
      */
     public Abbonamento getAbbonato(int posizione)
     {
@@ -127,6 +123,8 @@ public class elencoAbbonamenti implements Serializable
                 }
             
         }
+        if(c==0)
+            System.out.println("Nessun abbonamento presente");
         elencoAbbonati=Ordinatore.selectionSortCrescente(elencoAbbonati);
         for(int i=0;i<elencoAbbonati.length;i++)
         { 
@@ -144,23 +142,28 @@ public class elencoAbbonamenti implements Serializable
     public String AbbonamentoPerNome(String nomeDaCercare,String cognomeDaCercare)
     {
         String s="";
-        String elencoAbbonati[]=new String[getNumAbbonati()];
+        
         int c=0;
         
         Abbonamento abbonamento; 
-        for(int i=0;i<getNumAbbonati();i++)
+        for(int i=0;i<getNumMaxAbbonati();i++)
         {
-            if(abbonamenti[i].getNome().equalsIgnoreCase(nomeDaCercare))
+            if(abbonamenti[i]!=null)
             {
-                if(abbonamenti[i].getCognome().equalsIgnoreCase(cognomeDaCercare))
+                if(abbonamenti[i].getNome().equalsIgnoreCase(nomeDaCercare))
                 {
-                    abbonamento=getAbbonato(i);
-                    s=abbonamento.toString();
-                }
-                
+                    if(abbonamenti[i].getCognome().equalsIgnoreCase(cognomeDaCercare))
+                    {
+                        abbonamento=getAbbonato(i);
+                        s=abbonamento.toString();
+                        c++;
+                    }
+
+                } 
             }
-            
         }
+        if(c==0)
+            System.out.println("Abbonamento non presente");
         return s;
     }
     /**
@@ -174,32 +177,28 @@ public class elencoAbbonamenti implements Serializable
     public String AbbonamentoPerData(int annoDaCercare,int meseDaCercare,int giornoDaCercare)
     {
         String s="";
-        String elencoAbbonati[]=new String[getNumAbbonati()];
         int c=0;
-        
         Abbonamento abbonamento;
-        for(int i=0;i<getNumAbbonati();i++)
+        for(int i=0;i<getNumMaxAbbonati();i++)
         {
-            if(abbonamenti[i].getDataScadenza().getYear()==annoDaCercare)
+            if(abbonamenti[i]!=null)
             {
-                if(abbonamenti[i].getDataScadenza().getMonthValue()==meseDaCercare)
+                if(abbonamenti[i].getDataScadenza().getYear()==annoDaCercare)
                 {
-                    if(abbonamenti[i].getDataScadenza().getDayOfMonth()==giornoDaCercare)
+                    if(abbonamenti[i].getDataScadenza().getMonthValue()==meseDaCercare)
                     {
-                        abbonamento=getAbbonato(i);
-                        s=abbonamento.toString();
+                        if(abbonamenti[i].getDataScadenza().getDayOfMonth()==giornoDaCercare)
+                        {
+                            abbonamento=getAbbonato(i);
+                            s=abbonamento.toString();
+                            c++;
+                        }  
                     }
-                    else
-                        System.out.println("Nessun abbonamento in scadenza in questa data");
-                }
-                else
-                    System.out.println("Nessun abbonamento in scadenza in questa data");
-                
+                } 
             }
-            else
-                System.out.println("Nessun abbonamento in scadenza in questa data");
-            
         }
+        if(c==0)
+            System.out.println("Abbonamento non presente");
         return s;
     }
     /**
@@ -211,32 +210,29 @@ public class elencoAbbonamenti implements Serializable
      */
     public void rimuoviAbbonamento(int annoDaEliminare,int meseDaEliminare,int giornoDaEliminare)
     {
-        String elencoAbbonati[]=new String[getNumAbbonati()];
+        
         int c=0;
         Abbonamento abbonamento;
-        
-        for(int i=0;i<getNumAbbonati();i++)
-        {
-            if(abbonamenti[i].getDataScadenza().getYear()==annoDaEliminare)
+        for(int i=0;i<getNumMaxAbbonati();i++)
+        {    
+            if(abbonamenti[i]!=null)
             {
-                if(abbonamenti[i].getDataScadenza().getMonthValue()==meseDaEliminare)
+                if(abbonamenti[i].getDataScadenza().getYear()==annoDaEliminare)
                 {
-                    if(abbonamenti[i].getDataScadenza().getDayOfMonth()==giornoDaEliminare)
+                    if(abbonamenti[i].getDataScadenza().getMonthValue()==meseDaEliminare)
                     {
-                         abbonamenti[i]=null;
-                    }
-                    else
-                        System.out.println("Nessun abbonamento in scadenza in questa data");
-                }
-                else
-                    System.out.println("Nessun abbonamento in scadenza in questa data");
-                
-            }
-            else
-                System.out.println("Nessun abbonamento in scadenza in questa data");
+                        if(abbonamenti[i].getDataScadenza().getDayOfMonth()==giornoDaEliminare)
+                        {
+                            abbonamenti[i]=null;
+                            System.out.println("Abbonamento eliminato");
+                            c++;
+                        }  
+                    }   
+                }  
+            }       
         }
-       
-        
+        if(c==0)
+            System.out.println("Abbonamento non presente");
     }
     
     

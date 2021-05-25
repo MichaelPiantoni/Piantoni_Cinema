@@ -46,7 +46,7 @@ public class Menu
         {
             
             visualizzaMenu();
-            System.out.println("scelta -->");
+            System.out.println("Scelta -->");
             inputUtente=tastiera.nextLine();
             inputUtenteOk=true;
             //verifico che l'input sia numerico
@@ -72,7 +72,7 @@ public class Menu
         
             if(!inputUtenteOk)
             {
-                System.out.println("prem invio e inserisci nuovamente la tua scelta!");
+                System.out.println("premi invio e inserisci nuovamente la tua scelta!");
                 tastiera.nextLine();
             }
         

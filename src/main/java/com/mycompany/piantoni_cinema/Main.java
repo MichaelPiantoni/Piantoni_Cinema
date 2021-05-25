@@ -38,14 +38,15 @@ public class Main
         String nomeFileCSV="Abbonamenti.txt";
         
         
-        vociMenu[0] = "Esci";
+        
         vociMenu[1] = "Aggiungi abbonamento";
         vociMenu[2] = "Visualizza abbonamenti in ordine alfabetico";
         vociMenu[3] = "Visualizza abbonamento scrivendo nome e cognome";
         vociMenu[4] = "Visualizza abbonamento scrivendo data di scadenza";
-        vociMenu[5] = "Elimina abbonamento scrivendo la data di scefenza";
+        vociMenu[5] = "Elimina abbonamento scrivendo la data di scadenza";
         vociMenu[6] = "Esporta libri in formato csv";
         vociMenu[7] = "Salva dati";
+        vociMenu[0] = "Esci";
         
         Menu menu= new Menu(vociMenu);
 
@@ -84,8 +85,11 @@ public class Main
                     Nome=tastiera.nextLine();
                     System.out.println("Cognome--> ");
                     Cognome=tastiera.nextLine();
-                    System.out.println("Tipologia(1=annuale, 2=mensile, 3=settimanale)--> ");
-                    tipologia=tastiera.nextInt();
+                    do
+                    {
+                        System.out.println("Tipologia(1=annuale, 2=mensile, 3=settimanale)--> ");
+                        tipologia=tastiera.nextInt();
+                    }while(tipologia<0||tipologia>3);
                     System.out.println("Anno--> ");
                     anno=tastiera.nextInt();
                     System.out.println("Mese--> ");
@@ -116,12 +120,18 @@ public class Main
                     }
                     if(tipologia==3)
                     {
-                        annoS=anno;
-                        meseS=mese;
                         DataScadenza=abbonamento.getDataVendita().plusDays(7);
                         giornoS=DataScadenza.getDayOfMonth();
-                        
-                        
+                        if(giornoS<8 && mese!=12)
+                            meseS=mese+1;
+                        else if(mese==12)
+                            meseS=1;
+                        else if(giornoS>=8)
+                            meseS=mese;
+                        if(meseS==1)
+                            annoS=anno+1;
+                        else
+                            annoS=anno;   
                     }
                     abbonamento=new Abbonamento(codice,Nome, Cognome,tipologia,anno,mese,giorno,annoS,meseS,giornoS);
                     
